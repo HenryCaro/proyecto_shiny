@@ -382,7 +382,9 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                       pickerInput(inputId = "tipo_genero_salud",
                                                   label = "Datos FONASA según género",
                                                   choices = c("Beneficiarios FONASA por Género" = "beneficiarios_fonasa_genero",
-                                                              "Cotizantes FONASA por Género" = "cotizantes_fonasa_genero"),
+                                                              "Cotizantes FONASA por Género" = "cotizantes_fonasa_genero",
+                                                              "Beneficiarios ISAPRE por Género" = "beneficiarios_isapre_genero",
+                                                              "Cotizantes ISAPRE por Género" = "cotizantes_isapre_genero"),
                                                   selected = "beneficiarios_fonasa_genero",
                                                   options = list(style = "btn-danger")))))),
                  
@@ -1379,42 +1381,6 @@ server <- function(input, output) {
     
   })
   
-  output$grafico_genero_salud <- renderHighchart({
-    seleccion <- input$tipo_genero_salud
-    config <- grafico_config_genero_salud[[seleccion]]
-    
-    cols <- c("#E95420", "#49006a", "#F0AD4E")
-    cols <- substr(cols, 0, 7)
-    
-    daux <- config$datos %>% 
-      mutate(X = .data[[config$columna_x]], 
-             Y = .data[[config$columna_y]])
-    
-    hc <- hchart(
-      daux %>% select(x = X, y = Y, group = .data[[config$group]]), "bar",
-      hcaes(x, y, group = group)) %>%
-      hc_colors(cols) %>%
-      hc_title(text = config$titulo) %>%
-      hc_subtitle(
-        text = config$subtitulo,
-        align = "center",
-        style = list(color = "#2b908f", fontWeight = "bold")
-      ) %>%
-      hc_yAxis(visible = FALSE) %>%
-      hc_xAxis(title = list(text = "Año"),
-               crosshair = list(label = list(enabled = TRUE))) %>%
-      hc_tooltip(table = TRUE, sort = TRUE) %>%
-      hc_plotOptions(
-        series = list(
-          borderWidth = 0,
-          marker = list(states = list(hover = list(enabled = FALSE)))
-        )
-      )
-    
-    return(hc)
-    
-  })
-  
   observeEvent(input$datos_sistema_salud, {
     if (input$datos_sistema_salud == "beneficiarios_sistema_salud_region" || input$datos_sistema_salud == "cotizantes_sistema_salud_region" ) {
       output$cobertura_picker <- renderUI({
@@ -1458,7 +1424,7 @@ server <- function(input, output) {
         select(x = AÑO, y = Y, group = group_combined)
       
       hc <- hchart(
-        group_var, "streamgraph",
+        group_var, "spline",
         hcaes(x, y, group = interaction(group, drop = TRUE), colorByGroup = TRUE)
       ) %>%
         hc_title(text = config$titulo) %>%
@@ -1490,6 +1456,42 @@ server <- function(input, output) {
     }
     
     return(hc)
+  })
+  
+  output$grafico_genero_salud <- renderHighchart({
+    seleccion <- input$tipo_genero_salud
+    config <- grafico_config_genero_salud[[seleccion]]
+    
+    cols <- c("#E95420", "#49006a", "#F0AD4E")
+    cols <- substr(cols, 0, 7)
+    
+    daux <- config$datos %>% 
+      mutate(X = .data[[config$columna_x]], 
+             Y = .data[[config$columna_y]])
+    
+    hc <- hchart(
+      daux %>% select(x = X, y = Y, group = .data[[config$group]]), "streamgraph",
+      hcaes(x, y, group = group)) %>%
+      hc_colors(cols) %>%
+      hc_title(text = config$titulo) %>%
+      hc_subtitle(
+        text = config$subtitulo,
+        align = "center",
+        style = list(color = "#2b908f", fontWeight = "bold")
+      ) %>%
+      hc_yAxis(visible = FALSE) %>%
+      hc_xAxis(title = list(text = "Año"),
+               crosshair = list(label = list(enabled = TRUE))) %>%
+      hc_tooltip(table = TRUE, sort = TRUE) %>%
+      hc_plotOptions(
+        series = list(
+          borderWidth = 0,
+          marker = list(states = list(hover = list(enabled = FALSE)))
+        )
+      )
+    
+    return(hc)
+    
   })
   
 } 

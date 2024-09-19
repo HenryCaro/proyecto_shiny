@@ -1144,4 +1144,22 @@ grafico_config_genero_salud <- list(
     group = "GENERO",
     titulo = "Cotizantes FONASA",
     subtitulo = "Por Género"
-  ))
+  ),
+  beneficiarios_isapre_genero = list(
+    datos = read_rds("data/salud/grafico_genero_salud/beneficiarios_isapres_genero.rds") %>% filter(SEXO != "Total") ,
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    group = "SEXO",
+    titulo = "Beneficiarios ISAPRE",
+    subtitulo = "Por Género"
+  ),
+  cotizantes_isapre_genero = list(
+    datos = read_rds("data/salud/grafico_genero_salud/cotizantes_isapres_genero.rds") %>% filter(SEXO != "Total") ,
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    group = "SEXO",
+    titulo = "Cotizantes ISAPRE",
+    subtitulo = "Por Género"))
+
+
+
