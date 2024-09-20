@@ -359,7 +359,9 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                           "Cotizantes Sistema de Salud" = "cotizantes_sistema_salud",
                                                           "Beneficiarios Sistema de Salud por Región" = "beneficiarios_sistema_salud_region",
                                                           "Cotizantes Sistema de Salud por Región" = "cotizantes_sistema_salud_region",
+                                                          "Beneficiarios FONASA por Rango de Edad" = "beneficiarios_fonasa_edad",
                                                           "Cotizantes FONASA por Rango de Edad" = "cotizantes_fonasa_edad",
+                                                          "Beneficiarios ISAPRE por Rango de Edad" = "beneficiarios_isapre_edad",
                                                           "Cotizantes ISAPRE por Rango de Edad" = "cotizantes_isapre_edad"),
                                               selected = "beneficiarios_sistema_salud",
                                               options = list(style = "btn-danger"))),
@@ -1441,7 +1443,7 @@ server <- function(input, output) {
         select(x = AÑO, y = Y, group = .data[[config$group]])
       
       hc <- hchart(
-        group_var, "column",
+        group_var, "line",
         hcaes(x, y, group = group, colorByGroup = TRUE)
       ) %>%
         hc_title(text = config$titulo) %>%
