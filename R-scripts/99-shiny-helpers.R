@@ -1124,7 +1124,27 @@ grafico_config_general_salud <- list(
     group = c("REGIÓN", "COBERTURA"),
     prefix = "",
     suffix = "",
-    macrozona = "MACROZONA"))
+    macrozona = "MACROZONA"),
+  cotizantes_fonasa_edad = list(
+    datos = read_rds("data/salud/grafico_general_salud/cotizantes_fonasa_edad_total.rds") %>% filter(RANGO_EDAD != "TOTAL"),
+    titulo = "Cotizantes FONASA por Rango de Edad",
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    y_axis_title = "Cotizantes FONASA por Rango de Edad",
+    group = "RANGO_EDAD",
+    prefix = "",
+    suffix = "",
+    macrozona = ""),
+  cotizantes_isapre_edad = list(
+    datos = read_rds("data/salud/grafico_general_salud/cotizantes_isapre_edad_total.rds") %>% filter(RANGO_EDAD != "Total"),
+    titulo = "Cotizantes ISAPRE por Rango de Edad",
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    y_axis_title = "Cotizantes ISAPRE por Rango de Edad",
+    group = "RANGO_EDAD",
+    prefix = "",
+    suffix = "",
+    macrozona = ""))
 
 # Gráfico Genero Salud ----------------------------------------------------
  

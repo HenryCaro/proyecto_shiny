@@ -358,7 +358,9 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                               choices = c("Beneficiarios Sistema de Salud" = "beneficiarios_sistema_salud",
                                                           "Cotizantes Sistema de Salud" = "cotizantes_sistema_salud",
                                                           "Beneficiarios Sistema de Salud por Región" = "beneficiarios_sistema_salud_region",
-                                                          "Cotizantes Sistema de Salud por Región" = "cotizantes_sistema_salud_region"),
+                                                          "Cotizantes Sistema de Salud por Región" = "cotizantes_sistema_salud_region",
+                                                          "Cotizantes FONASA por Rango de Edad" = "cotizantes_fonasa_edad",
+                                                          "Cotizantes ISAPRE por Rango de Edad" = "cotizantes_isapre_edad"),
                                               selected = "beneficiarios_sistema_salud",
                                               options = list(style = "btn-danger"))),
                               
@@ -1424,7 +1426,7 @@ server <- function(input, output) {
         select(x = AÑO, y = Y, group = group_combined)
       
       hc <- hchart(
-        group_var, "spline",
+        group_var, "streamgraph",
         hcaes(x, y, group = interaction(group, drop = TRUE), colorByGroup = TRUE)
       ) %>%
         hc_title(text = config$titulo) %>%
@@ -1446,13 +1448,13 @@ server <- function(input, output) {
         hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>%
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
-        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     } else {
       hc <- hchart(daux, "column", hcaes(x = AÑO, y = Y)) %>%
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_title(text = config$titulo) %>%
-        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     }
     
     return(hc)
