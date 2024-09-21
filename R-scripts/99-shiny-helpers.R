@@ -1231,5 +1231,69 @@ grafico_config_genero_salud <- list(
     titulo = "Cotizantes ISAPRE",
     subtitulo = "Por Género"))
 
+# Gráfico Treemap Salud ---------------------------------------------------
+
+grafico_config_treemap <-  list(
+    datos = read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds") %>% filter(REGIÓN != "Total Nacional"),
+    titulo = "Tramos de Beneficiarios de FONASA por Año")
+
+# Gráfico ISAPRE ----------------------------------------------------------
+
+grafico_config_isapre <- list(
+  beneficiarios_isapre_abiertas = list(
+    datos = read_rds("data/salud/grafico_isapre/beneficiarios_salud_por_isapre_abiertas.rds") %>% filter(ISAPRES != "Total Isapres Abiertas") ,
+    columna_x = "AÑO",
+    columna_y = "BENEFICIARIOS ISAPRES ABIERTAS",
+    group = "ISAPRES",
+    titulo = "Beneficiarios ISAPRE",
+    subtitulo = "Por Aseguradora",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Beneficiarios ISAPRE por Aseguradora"
+  ), 
+  beneficiarios_isapre_cerradas = list(
+    datos = read_rds("data/salud/grafico_isapre/beneficiarios_salud_por_isapre_cerradas.rds") %>% filter(ISAPRES != "Total Isapres Cerradas") ,
+    columna_x = "AÑO",
+    columna_y = "BENEFICIARIOS ISAPRES CERRADAS",
+    group = "ISAPRES",
+    titulo = "Beneficiarios ISAPRE",
+    subtitulo = "Por Aseguradora",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Beneficiarios ISAPRE por Aseguradora"
+  ),
+  cotizantes_isapre_abiertas = list(
+    datos = read_rds("data/salud/grafico_isapre/cotizantes_salud_por_isapre_abiertas.rds") %>% filter(ISAPRES != "Total Isapres Cerradas") ,
+    columna_x = "AÑO",
+    columna_y = "COTIZANTES ISAPRES ABIERTAS",
+    group = "ISAPRES",
+    titulo = "Cotizantes ISAPRE",
+    subtitulo = "Por Aseguradora",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Cotizantes ISAPRE por Aseguradora"
+  ),
+  cotizantes_isapre_cerradas = list(
+    datos = read_rds("data/salud/grafico_isapre/cotizantes_salud_por_isapre_cerradas.rds") %>% filter(ISAPRES != "Total Isapres Cerradas") ,
+    columna_x = "AÑO",
+    columna_y = "COTIZANTES ISAPRES CERRADAS",
+    group = "ISAPRES",
+    titulo = "Cotizantes ISAPRE",
+    subtitulo = "Por Aseguradora",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Cotizantes ISAPRE por Aseguradora"
+  ))
+
+
+grafico_config_isapre2 <- list(
+  )
+
+
+
+
+
+
+
 
 

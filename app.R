@@ -399,20 +399,39 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                  
                  fluidRow(
                    div(style = "display: flex; justify-content: space-between; padding-right: 20px; height: 100vh;",
-                       div(style = "flex: 1;"),
-                         div(style = "flex: 1; display: flex; flex-direction: column; align-items: center;",
+                       div(style = "flex: 0 0 50%; display: flex; flex-direction: column; align-items: center;",
                            div(style = "text-align: center; color: black; margin-bottom: 20px;",
                                pickerInput(inputId = "anio", 
                                            label = "Selecciona un Año:", 
-                                           choices = unique(read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds")$AÑO), 
-                                           selected = unique(read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds")$AÑO)[1],
+                                           choices = unique(grafico_config_treemap$datos$AÑO), 
+                                           selected = unique(grafico_config_treemap$datos$AÑO)[1],
                                            options = list(style = "btn-danger"))),
                            div(style = "display: flex; justify-content: center; align-items: center;",
-                             highchartOutput("treemapPlot", width = "800px", height = "1000px"))))),
+                               highchartOutput("treemapPlot", width = "700px", height = "1000px"))),
+                       
+                       div(style = "flex: 0 0 50%; display: flex; flex-direction: column; justify-content: space-between;",
+                           div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
+                               pickerInput(inputId = "tipo_isapre",
+                                           label = "Datos beneficiarios según ISAPRE",
+                                           choices = c("Beneficiarios por ISAPRE abiertas" = "beneficiarios_isapre_abiertas"),
+                                           selected = "beneficiarios_isapre_abiertas",
+                                           options = list(style = "btn-danger")),
+                               div(style = "flex: 1; margin-bottom: 10px;",
+                                   highchartOutput("grafico_isapres", width = "950px", height = "450px"))),
+                           
+                           div(style = "flex: 0 0 50%; display: flex; flex-direction: column; justify-content: space-between;",
+                               div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
+                                   pickerInput(inputId = "tipo_isapre2",
+                                               label = "Datos beneficiarios según ISAPRE",
+                                               choices = c("Beneficiarios por ISAPRE cerradas" = "beneficiarios_isapre_cerradas"),
+                                               selected = "beneficiarios_isapre_cerradas",
+                                               options = list(style = "btn-danger")),
+                                   div(style = "flex: 1; margin-bottom: 10px;",
+                                       highchartOutput("grafico_isapres2", width = "950px", height = "450px"))))))),
                  
                  fluidRow(style = "height:200px;"),
                  tags$hr(),
-                 fluidRow(style = "height:100px;"),),
+                 fluidRow(style = "height:100px;")),
 
 )
 
@@ -445,7 +464,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
       
     } else if (!is.null(config$group) && config$group %in% names(daux)) {
       group_var <- daux %>%
@@ -460,7 +479,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     } else {
       
       hc <- hchart(daux, "spline", hcaes(x = AÑO, y = Y)) %>%
@@ -469,7 +488,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     }
     
     return(hc)
@@ -499,7 +518,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
       
     } else if (!is.null(config$group) && config$group %in% names(daux)) {
       group_var <- daux %>%
@@ -514,7 +533,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     } else {
       
       hc <- hchart(daux, "column", hcaes(x = AÑO, y = Y)) %>%
@@ -523,7 +542,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     }
     return(hc)
   })
@@ -581,7 +600,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
       
     } else if (!is.null(config$group) && config$group %in% names(daux)) {
       group_var <- daux %>%
@@ -595,14 +614,14 @@ server <- function(input, output) {
         hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>%
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     } else {
       
       hc <- hchart(daux, "column", hcaes(x = AÑO, y = Y)) %>%
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_title(text = config$titulo) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle", width = 250)
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     }
     
     return(hc)
@@ -632,7 +651,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
       
     } else if (!is.null(config$group) && config$group %in% names(daux)) {
       group_var <- daux %>%
@@ -647,7 +666,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     } else {
       
       hc <- hchart(daux, "column", hcaes(x = AÑO, y = Y)) %>%
@@ -656,7 +675,7 @@ server <- function(input, output) {
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
         hc_plotOptions(series = list(marker = list(enabled = FALSE))) %>%
-        hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     }
     
     return(hc)
@@ -1519,23 +1538,82 @@ server <- function(input, output) {
   
   output$treemapPlot <- renderHighchart({
     
-    data_filtrada <- read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds") %>% filter(REGIÓN != "Total Nacional") %>% 
-      filter(AÑO == input$anio)
+    config <- grafico_config_treemap
+    
+    data_filtrada <- config$datos %>% filter(AÑO == input$anio)
     
     data_treemap <- data_filtrada %>%
-      mutate(path = paste(TRAMOS, REGIÓN, sep = "/"))  
+      mutate(X = paste(TRAMOS, REGIÓN, sep = "/"))  
     
     hchart(
       data_treemap, "treemap",
-      hcaes(x = path, value = CANTIDAD, color = CANTIDAD)
+      hcaes(x = X, value = CANTIDAD, color = CANTIDAD)
     ) %>%
-      hc_title(text = paste("Tramos de Beneficiarios de FONASA por Año", input$anio)) %>%
+      hc_title(text = paste(config$titulo, input$anio)) %>%
       hc_colorAxis(minColor = "#F0AD4E", maxColor = "#E95420") %>%
       hc_tooltip(pointFormat = "<b>{point.name}</b>: {point.value}")
     
   })
   
+  output$grafico_isapres <- renderHighchart({
+    seleccion <- input$tipo_isapre
+    config <- grafico_config_isapre[[seleccion]]
+    
+    daux <- config$datos %>% 
+      mutate(AÑO = .data[[config$columna_x]], 
+             Y = as.double(.data[[config$columna_y]]))
+    
+    hc <- hchart(
+      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), "spline",
+      hcaes(x, y, group = group, colorByGroup = TRUE)
+    ) %>% 
+      hc_title(text = config$titulo) %>% 
+      hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>% 
+      hc_yAxis(
+        title = list(text = config$y_axis_title)
+      ) %>% 
+      hc_xAxis(
+        title = "Año"
+      ) %>% 
+      hc_plotOptions(
+        series = list(
+          marker = list(enabled = FALSE)
+        )
+      ) %>% 
+      hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+    
+    return(hc)
+  })  
   
+  output$grafico_isapres2 <- renderHighchart({
+    seleccion <- input$tipo_isapre2
+    config <- grafico_config_isapre2[[seleccion]]
+    
+    daux <- config$datos %>% 
+      mutate(AÑO = .data[[config$columna_x]], 
+             Y = as.double(.data[[config$columna_y]]))
+    
+    hc <- hchart(
+      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), "spline",
+      hcaes(x, y, group = group, colorByGroup = TRUE)
+    ) %>% 
+      hc_title(text = config$titulo) %>% 
+      hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>% 
+      hc_yAxis(
+        title = list(text = config$y_axis_title)
+      ) %>% 
+      hc_xAxis(
+        title = "Año"
+      ) %>% 
+      hc_plotOptions(
+        series = list(
+          marker = list(enabled = FALSE)
+        )
+      ) %>% 
+      hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+    
+    return(hc)
+  })  
   
 } 
 
