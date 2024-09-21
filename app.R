@@ -362,7 +362,9 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                           "Beneficiarios FONASA por Rango de Edad" = "beneficiarios_fonasa_edad",
                                                           "Cotizantes FONASA por Rango de Edad" = "cotizantes_fonasa_edad",
                                                           "Beneficiarios ISAPRE por Rango de Edad" = "beneficiarios_isapre_edad",
-                                                          "Cotizantes ISAPRE por Rango de Edad" = "cotizantes_isapre_edad"),
+                                                          "Cotizantes ISAPRE por Rango de Edad" = "cotizantes_isapre_edad",
+                                                          "Cotizantes FONASA por Tipo de Relación Laboral" = "cotizantes_fonasa_laboral",
+                                                          "Cotizantes ISAPRE por Tipo de Relación Laboral" = "cotizantes_isapre_laboral"),
                                               selected = "beneficiarios_sistema_salud",
                                               options = list(style = "btn-danger"))),
                               
@@ -1432,6 +1434,7 @@ server <- function(input, output) {
         hcaes(x, y, group = interaction(group, drop = TRUE), colorByGroup = TRUE)
       ) %>%
         hc_title(text = config$titulo) %>%
+        hc_subtitle(text = config$subtitulo, align = "center", style = list(color = "#2b908f", fontWeight = "bold")) %>% 
         hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>%
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
@@ -1442,20 +1445,18 @@ server <- function(input, output) {
       group_var <- daux %>%
         select(x = AÑO, y = Y, group = .data[[config$group]])
       
+      num_categorias <- n_distinct(group_var$group)
+
+      tipo_grafico <- if (num_categorias > 6) "spline" else "column"
+      
       hc <- hchart(
-        group_var, "line",
+        group_var, tipo_grafico,
         hcaes(x, y, group = group, colorByGroup = TRUE)
       ) %>%
         hc_title(text = config$titulo) %>%
         hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>%
         hc_yAxis(title = list(text = config$y_axis_title)) %>%
         hc_xAxis(title = "Año") %>%
-        hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
-    } else {
-      hc <- hchart(daux, "column", hcaes(x = AÑO, y = Y)) %>%
-        hc_yAxis(title = list(text = config$y_axis_title)) %>%
-        hc_xAxis(title = "Año") %>%
-        hc_title(text = config$titulo) %>%
         hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     }
     
