@@ -393,8 +393,26 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                               "Cotizantes ISAPRE por Género" = "cotizantes_isapre_genero"),
                                                   selected = "beneficiarios_fonasa_genero",
                                                   options = list(style = "btn-danger")))))),
+                 fluidRow(style = "height:50px;"),
+                 tags$hr(),
+                 fluidRow(style = "height:50px;"),
                  
-                 fluidRow(style = "height:60px;")),
+                 fluidRow(
+                   div(style = "display: flex; justify-content: space-between; padding-right: 20px; height: 100vh;",
+                       div(style = "flex: 1;"),
+                         div(style = "flex: 1; display: flex; flex-direction: column; align-items: center;",
+                           div(style = "text-align: center; color: black; margin-bottom: 20px;",
+                               pickerInput(inputId = "anio", 
+                                           label = "Selecciona un Año:", 
+                                           choices = unique(read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds")$AÑO), 
+                                           selected = unique(read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds")$AÑO)[1],
+                                           options = list(style = "btn-danger"))),
+                           div(style = "display: flex; justify-content: center; align-items: center;",
+                             highchartOutput("treemapPlot", width = "800px", height = "1000px"))))),
+                 
+                 fluidRow(style = "height:200px;"),
+                 tags$hr(),
+                 fluidRow(style = "height:100px;"),),
 
 )
 
@@ -1498,6 +1516,26 @@ server <- function(input, output) {
     return(hc)
     
   })
+  
+  output$treemapPlot <- renderHighchart({
+    
+    data_filtrada <- read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds") %>% filter(REGIÓN != "Total Nacional") %>% 
+      filter(AÑO == input$anio)
+    
+    data_treemap <- data_filtrada %>%
+      mutate(path = paste(TRAMOS, REGIÓN, sep = "/"))  
+    
+    hchart(
+      data_treemap, "treemap",
+      hcaes(x = path, value = CANTIDAD, color = CANTIDAD)
+    ) %>%
+      hc_title(text = paste("Tramos de Beneficiarios de FONASA por Año", input$anio)) %>%
+      hc_colorAxis(minColor = "#F0AD4E", maxColor = "#E95420") %>%
+      hc_tooltip(pointFormat = "<b>{point.name}</b>: {point.value}")
+    
+  })
+  
+  
   
 } 
 
