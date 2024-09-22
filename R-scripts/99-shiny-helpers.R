@@ -1263,7 +1263,7 @@ grafico_config_isapre <- list(
     y_axis_title = "Beneficiarios ISAPRE por Aseguradora"
   ),
   cotizantes_isapre_abiertas = list(
-    datos = read_rds("data/salud/grafico_isapre/cotizantes_salud_por_isapre_abiertas.rds") %>% filter(ISAPRES != "Total Isapres Cerradas") ,
+    datos = read_rds("data/salud/grafico_isapre/cotizantes_salud_por_isapre_abiertas.rds") %>% filter(ISAPRES != "Total Isapres Abiertas") ,
     columna_x = "AÑO",
     columna_y = "COTIZANTES ISAPRES ABIERTAS",
     group = "ISAPRES",
@@ -1287,13 +1287,91 @@ grafico_config_isapre <- list(
 
 
 grafico_config_isapre2 <- list(
-  )
-
-
-
-
-
-
-
-
-
+  ingreso_actividades_ordinarias = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Ingresos de actividades ordinarias") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Ingresos de actividades ordinarias",
+    subtitulo = "Sistema ISAPRE",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Ingresos de actividades ordinarias"
+  ),
+  costo_de_ventas = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Costo de ventas (menos)") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Costo de ventas (menos)",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Costo de ventas (menos)"
+  ),
+  ganancia_bruta = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Ganancia bruta") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Ganancia bruta",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Ganancia bruta"
+  ),
+  gastos_de_administracion = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Gastos de administración y otros gastos por función (menos)") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Gastos de administración y otros gastos por función (menos)",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Gastos de administración y otros gastos por función (menos)"
+  ),
+  otros_items = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Otros items de ingresos y egresos (1)") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Otros items de ingresos y egresos",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Otros items de ingresos y egresos"
+  ),
+  gananas_pre_impuestos = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Ganancia (pérdida) antes de impuestos") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Ganancia (pérdida) antes de impuestos",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Ganancia (pérdida) antes de impuestos"
+  ),
+  gastos_por_impuestos = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Gasto por impuestos a las ganancias (menos)") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Gasto por impuestos a las ganancias (menos)",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Gasto por impuestos a las ganancias (menos)"
+  ),
+  ganancia_perdida = list(
+    datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Ganancia (pérdida)") ,
+    columna_x = "AÑO",
+    columna_y = "MILLONES DE PESOS",
+    group = "Rubros",
+    titulo = "Ganancia (pérdida)",
+    subtitulo = "",
+    suffix = "",
+    prefix= "$ ",
+    y_axis_title = "Ganancia (pérdida)"
+  ))

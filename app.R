@@ -413,21 +413,31 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                            div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
                                pickerInput(inputId = "tipo_isapre",
                                            label = "Datos beneficiarios según ISAPRE",
-                                           choices = c("Beneficiarios por ISAPRE abiertas" = "beneficiarios_isapre_abiertas"),
+                                           choices = c("Beneficiarios por ISAPRE abiertas" = "beneficiarios_isapre_abiertas",
+                                                       "Beneficiarios por ISAPRE cerradas" = "beneficiarios_isapre_cerradas",
+                                                       "Cotizantes por ISAPRE abiertas" = "cotizantes_isapre_abiertas",
+                                                       "Cotizantes por ISAPRE cerradas" = "cotizantes_isapre_cerradas"),
                                            selected = "beneficiarios_isapre_abiertas",
                                            options = list(style = "btn-danger")),
                                div(style = "flex: 1; margin-bottom: 10px;",
-                                   highchartOutput("grafico_isapres", width = "950px", height = "450px"))),
+                                   highchartOutput("grafico_isapres", width = "800px", height = "450px"))),
                            
                            div(style = "flex: 0 0 50%; display: flex; flex-direction: column; justify-content: space-between;",
                                div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
                                    pickerInput(inputId = "tipo_isapre2",
                                                label = "Datos beneficiarios según ISAPRE",
-                                               choices = c("Beneficiarios por ISAPRE cerradas" = "beneficiarios_isapre_cerradas"),
-                                               selected = "beneficiarios_isapre_cerradas",
+                                               choices = c("Ingreso Actividades Ordinarias Sistema ISAPRE" = "ingreso_actividades_ordinarias",
+                                                           "Costo de ventas (menos)" = "costo_de_ventas",
+                                                           "Ganancia Bruta" = "ganancia_bruta",
+                                                           "Gastos de administración y otros gastos por función (menos)" = "gastos_de_administracion",
+                                                           "Otros items de ingresos y egresos" = "otros_items",
+                                                           "Ganancia (pérdida) antes de impuestos" = "gananas_pre_impuestos",
+                                                           "Gasto por impuestos a las ganancias (menos)" = "gastos_por_impuestos",
+                                                           "Ganancia (pérdida)" = "ganancia_perdida"),
+                                               selected = "ingreso_actividades_ordinarias",
                                                options = list(style = "btn-danger")),
                                    div(style = "flex: 1; margin-bottom: 10px;",
-                                       highchartOutput("grafico_isapres2", width = "950px", height = "450px"))))))),
+                                       highchartOutput("grafico_isapres2", width = "800px", height = "450px"))))))),
                  
                  fluidRow(style = "height:200px;"),
                  tags$hr(),
@@ -1550,7 +1560,7 @@ server <- function(input, output) {
       hcaes(x = X, value = CANTIDAD, color = CANTIDAD)
     ) %>%
       hc_title(text = paste(config$titulo, input$anio)) %>%
-      hc_colorAxis(minColor = "#F0AD4E", maxColor = "#E95420") %>%
+      hc_colorAxis(minColor = "#49006a", maxColor = "#E95420") %>%
       hc_tooltip(pointFormat = "<b>{point.name}</b>: {point.value}")
     
   })
@@ -1580,7 +1590,7 @@ server <- function(input, output) {
           marker = list(enabled = FALSE)
         )
       ) %>% 
-      hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+      hc_legend(list(enabled = FALSE))
     
     return(hc)
   })  
@@ -1594,7 +1604,7 @@ server <- function(input, output) {
              Y = as.double(.data[[config$columna_y]]))
     
     hc <- hchart(
-      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), "spline",
+      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), "column",
       hcaes(x, y, group = group, colorByGroup = TRUE)
     ) %>% 
       hc_title(text = config$titulo) %>% 
@@ -1610,7 +1620,7 @@ server <- function(input, output) {
           marker = list(enabled = FALSE)
         )
       ) %>% 
-      hc_legend(layout = "vertical", align = "right", verticalAlign = "middle")
+      hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
     
     return(hc)
   })  
