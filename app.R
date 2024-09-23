@@ -390,7 +390,8 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                   choices = c("Beneficiarios FONASA por Género" = "beneficiarios_fonasa_genero",
                                                               "Cotizantes FONASA por Género" = "cotizantes_fonasa_genero",
                                                               "Beneficiarios ISAPRE por Género" = "beneficiarios_isapre_genero",
-                                                              "Cotizantes ISAPRE por Género" = "cotizantes_isapre_genero"),
+                                                              "Cotizantes ISAPRE por Género" = "cotizantes_isapre_genero",
+                                                              "Cotizantes de ISAPRE según Movilidad" = "estadisticas_movilidad"),
                                                   selected = "beneficiarios_fonasa_genero",
                                                   options = list(style = "btn-danger")))))),
                  fluidRow(style = "height:50px;"),
@@ -414,9 +415,10 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                pickerInput(inputId = "tipo_isapre",
                                            label = "Datos beneficiarios según ISAPRE",
                                            choices = c("Beneficiarios por ISAPRE abiertas" = "beneficiarios_isapre_abiertas",
-                                                       "Beneficiarios por ISAPRE cerradas" = "beneficiarios_isapre_cerradas",
                                                        "Cotizantes por ISAPRE abiertas" = "cotizantes_isapre_abiertas",
-                                                       "Cotizantes por ISAPRE cerradas" = "cotizantes_isapre_cerradas"),
+                                                       "Beneficiarios por ISAPRE cerradas" = "beneficiarios_isapre_cerradas",
+                                                       "Cotizantes por ISAPRE cerradas" = "cotizantes_isapre_cerradas",
+                                                       "Cotizantes según Movilidad" = "estadisticas_movilidad"),
                                            selected = "beneficiarios_isapre_abiertas",
                                            options = list(style = "btn-danger")),
                                div(style = "flex: 1; margin-bottom: 10px;",
@@ -426,35 +428,38 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
                                    pickerInput(inputId = "tipo_isapre2",
                                                label = "Datos beneficiarios según ISAPRE",
-                                               choices = c("Ingreso Actividades Ordinarias Sistema ISAPRE" = "ingreso_actividades_ordinarias",
-                                                           "Costo de ventas (menos)" = "costo_de_ventas",
-                                                           "Ganancia Bruta" = "ganancia_bruta",
-                                                           "Gastos de administración y otros gastos por función (menos)" = "gastos_de_administracion",
-                                                           "Otros items de ingresos y egresos" = "otros_items",
-                                                           "Ganancia (pérdida) antes de impuestos" = "gananas_pre_impuestos",
-                                                           "Gasto por impuestos a las ganancias (menos)" = "gastos_por_impuestos",
-                                                           "Ganancia (pérdida)" = "ganancia_perdida"),
-                                               selected = "ingreso_actividades_ordinarias",
+                                               choices = c("Distribución Beneficiarios por Tipo de Plan ISAPRES abiertas" = "distribucion_tipo_plan_i_abiertas",
+                                                           "Distribución Cotizantes por Tipo de Plan ISAPRES abiertas" = "distribucion_tipo_plan_i_abiertas2",
+                                                           "Distribución Beneficiarios por Tipo de Plan ISAPRES cerradas" = "distribucion_tipo_plan_i_cerradas",
+                                                           "Distribución Cotizantes por Tipo de Plan ISAPRES cerradas" = "distribucion_tipo_plan_i_cerradas2"),
+                                               selected = "distribucion_tipo_plan_i_abiertas",
                                                options = list(style = "btn-danger")),
                                    div(style = "flex: 1; margin-bottom: 10px;",
                                        highchartOutput("grafico_isapres2", width = "800px", height = "450px"))))))),
-                 
+                
                  fluidRow(style = "height:200px;"),
                  tags$hr(),
                  fluidRow(style = "height:100px;"),
                  
                  fluidRow(div(style = "display: flex; justify-content: space-between;",
                               div(style = "flex: 0 0 58%;",
-                                  highchartOutput("grafico_movilidad", height = "500px")),
+                                  highchartOutput("grafico_financiero", height = "500px")),
                               div(style = "flex: 0 0 40%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; 
                                                     height: 500px; background-image: url('imagen_piloto.jpg'); background-size: contain; background-position: center; 
                                                        background-repeat: no-repeat;",
                                   div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; 
                                                   color: white; transform: translateY(10%);",
-                                      pickerInput(inputId = "tipo_movilidad",
-                                                  label = "Movilidad Sistema ISAPRE",
-                                                  choices = c("Cotizantes de ISAPRE según Movilidad" = "estadisticas_movilidad"),
-                                                  selected = "estadisticas_movilidad",
+                                      pickerInput(inputId = "tipo_financiero",
+                                                  label = "Información Financiera Sistema ISAPRE",
+                                                  choices = c("Ingreso Actividades Ordinarias Sistema ISAPRE" = "ingreso_actividades_ordinarias",
+                                                              "Costo de ventas (menos)" = "costo_de_ventas",
+                                                              "Ganancia Bruta" = "ganancia_bruta",
+                                                              "Gastos de administración y otros gastos por función (menos)" = "gastos_de_administracion",
+                                                              "Otros items de ingresos y egresos" = "otros_items",
+                                                              "Ganancia (pérdida) antes de impuestos" = "gananas_pre_impuestos",
+                                                              "Gasto por impuestos a las ganancias (menos)" = "gastos_por_impuestos",
+                                                              "Ganancia (pérdida)" = "ganancia_perdida"),
+                                                  selected = "ingreso_actividades_ordinarias",
                                                   options = list(style = "btn-danger")))))),
                  
                  
@@ -1588,10 +1593,15 @@ server <- function(input, output) {
     
     daux <- config$datos %>% 
       mutate(AÑO = .data[[config$columna_x]], 
-             Y = as.double(.data[[config$columna_y]]))
+             Y = as.double(.data[[config$columna_y]]),
+             group = .data[[config$group]])
+    
+    num_categorias <- n_distinct(daux$group)
+    
+    tipo_grafico <- if (num_categorias > 6) "spline" else "column"
     
     hc <- hchart(
-      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), "spline",
+      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), tipo_grafico,
       hcaes(x, y, group = group, colorByGroup = TRUE)
     ) %>% 
       hc_title(text = config$titulo) %>% 
@@ -1610,7 +1620,7 @@ server <- function(input, output) {
       hc_legend(list(enabled = FALSE))
     
     return(hc)
-  })  
+  })   
   
   output$grafico_isapres2 <- renderHighchart({
     seleccion <- input$tipo_isapre2
@@ -1642,9 +1652,9 @@ server <- function(input, output) {
     return(hc)
   })  
   
-  output$grafico_movilidad <- renderHighchart({
-    seleccion <- input$tipo_movilidad
-    config <- grafico_config_movilidad_isapre[[seleccion]]
+  output$grafico_financiero <- renderHighchart({
+    seleccion <- input$tipo_financiero
+    config <- grafico_config_financiero_isapre[[seleccion]]
     
     daux <- config$datos %>% 
       mutate(AÑO = .data[[config$columna_x]], 

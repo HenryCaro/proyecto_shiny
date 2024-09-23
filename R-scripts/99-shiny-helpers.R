@@ -1245,7 +1245,7 @@ grafico_config_isapre <- list(
     columna_x = "AÑO",
     columna_y = "BENEFICIARIOS ISAPRES ABIERTAS",
     group = "ISAPRES",
-    titulo = "Beneficiarios ISAPRE",
+    titulo = "Beneficiarios ISAPRE ABIERTAS",
     subtitulo = "Por Aseguradora",
     suffix = "",
     prefix= "",
@@ -1256,7 +1256,7 @@ grafico_config_isapre <- list(
     columna_x = "AÑO",
     columna_y = "BENEFICIARIOS ISAPRES CERRADAS",
     group = "ISAPRES",
-    titulo = "Beneficiarios ISAPRE",
+    titulo = "Beneficiarios ISAPRE CERRADAS",
     subtitulo = "Por Aseguradora",
     suffix = "",
     prefix= "",
@@ -1267,7 +1267,7 @@ grafico_config_isapre <- list(
     columna_x = "AÑO",
     columna_y = "COTIZANTES ISAPRES ABIERTAS",
     group = "ISAPRES",
-    titulo = "Cotizantes ISAPRE",
+    titulo = "Cotizantes ISAPRE ABIERTAS",
     subtitulo = "Por Aseguradora",
     suffix = "",
     prefix= "",
@@ -1278,15 +1278,74 @@ grafico_config_isapre <- list(
     columna_x = "AÑO",
     columna_y = "COTIZANTES ISAPRES CERRADAS",
     group = "ISAPRES",
-    titulo = "Cotizantes ISAPRE",
+    titulo = "Cotizantes ISAPRE CERRADAS",
     subtitulo = "Por Aseguradora",
     suffix = "",
     prefix= "",
     y_axis_title = "Cotizantes ISAPRE por Aseguradora"
+  ),
+  estadisticas_movilidad = list(
+    datos = read_rds("data/salud/grafico_isapre/estadisticas_movilidad.rds") %>% filter(`TRAMOS DE EDAD` == "Total"),
+    titulo = "Cotizantes de ISAPRE según Movilidad",
+    subtitulo = "",
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE COTIZANTES",
+    y_axis_title = "Cotizantes de ISAPRE según Movilidad",
+    group = "CONDICION COTIZANTES"
   ))
 
 
 grafico_config_isapre2 <- list(
+  distribucion_tipo_plan_i_abiertas = list(
+    datos = read_rds("data/salud/grafico_isapre/beneficiarios_tipo_plan.rds") %>% filter(ISAPRE %in% c("Isapres Abiertas")) %>% 
+      select(AÑO, `TIPO DE PLAN`, `NUMERO DE BENEFICIARIOS`),
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE BENEFICIARIOS",
+    group = "TIPO DE PLAN",
+    titulo = "Distribución Beneficiarios por Tipo de Plan ISAPRES abiertas",
+    subtitulo = "ISAPRES Abiertas",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Número de Beneficiarios"
+  ),
+  distribucion_tipo_plan_i_abiertas2 = list(
+    datos = read_rds("data/salud/grafico_isapre/cotizantes_tipo_plan.rds") %>% filter(ISAPRE %in% c("Isapres Abiertas")) %>% 
+      select(AÑO, `TIPO DE PLAN`, `NUMERO DE COTIZANTES`),
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE COTIZANTES",
+    group = "TIPO DE PLAN",
+    titulo = "Distribución Cotizantes por Tipo de Plan ISAPRES abiertas",
+    subtitulo = "ISAPRES Abiertas",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Número de Cotizantes"
+  ),
+  distribucion_tipo_plan_i_cerradas = list(
+    datos = read_rds("data/salud/grafico_isapre/beneficiarios_tipo_plan.rds") %>% filter(ISAPRE %in%  c("Isapres Cerradas")) %>% select(AÑO, `TIPO DE PLAN`, `NUMERO DE BENEFICIARIOS`),
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE BENEFICIARIOS",
+    group = "TIPO DE PLAN",
+    titulo = "Distribución Beneficiarios por Tipo de Plan ISAPRES cerradas",
+    subtitulo = "ISAPRES Cerradas",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Número de Beneficiarios"
+  ),
+  distribucion_tipo_plan_i_cerradas2 = list(
+    datos = read_rds("data/salud/grafico_isapre/cotizantes_tipo_plan.rds") %>% filter(ISAPRE %in% c("Isapres Cerradas")) %>% select(AÑO, `TIPO DE PLAN`, `NUMERO DE COTIZANTES`),
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE COTIZANTES",
+    group = "TIPO DE PLAN",
+    titulo = "Distribución Cotizantes por Tipo de Plan ISAPRES cerradas",
+    subtitulo = "ISAPRES Cerradas",
+    suffix = "",
+    prefix= "",
+    y_axis_title = "Número de Cotizantes"
+  ))
+
+# Gráfico Movilidad ISAPRE ------------------------------------------------
+
+grafico_config_financiero_isapre <- list(
   ingreso_actividades_ordinarias = list(
     datos = read_rds("data/salud/grafico_isapre/informacion_financiera_isapres.rds") %>% filter(Rubros == "Ingresos de actividades ordinarias") ,
     columna_x = "AÑO",
@@ -1304,7 +1363,7 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Costo de ventas (menos)",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Costo de ventas (menos)"
@@ -1315,7 +1374,7 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Ganancia bruta",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Ganancia bruta"
@@ -1326,7 +1385,7 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Gastos de administración y otros gastos por función (menos)",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Gastos de administración y otros gastos por función (menos)"
@@ -1337,7 +1396,7 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Otros items de ingresos y egresos",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Otros items de ingresos y egresos"
@@ -1348,7 +1407,7 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Ganancia (pérdida) antes de impuestos",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Ganancia (pérdida) antes de impuestos"
@@ -1359,7 +1418,7 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Gasto por impuestos a las ganancias (menos)",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Gasto por impuestos a las ganancias (menos)"
@@ -1370,23 +1429,9 @@ grafico_config_isapre2 <- list(
     columna_y = "MILLONES DE PESOS",
     group = "Rubros",
     titulo = "Ganancia (pérdida)",
-    subtitulo = "",
+    subtitulo = "Sistema ISAPRE",
     suffix = "",
     prefix= "$ ",
     y_axis_title = "Ganancia (pérdida)"
   ))
-
-# Gráfico Movilidad ISAPRE ------------------------------------------------
-
-grafico_config_movilidad_isapre <- list(
-  estadisticas_movilidad = list(
-    datos = read_rds("data/salud/grafico_isapre/estadisticas_movilidad.rds") %>% filter(`TRAMOS DE EDAD` == "Total"),
-    titulo = "Cotizantes de ISAPRE según Movilidad",
-    subtitulo = "",
-    columna_x = "AÑO",
-    columna_y = "NUMERO DE COTIZANTES",
-    y_axis_title = "Cotizantes de ISAPRE según Movilidad",
-    group = "CONDICION COTIZANTES"
-  ))
-
 
