@@ -1375,3 +1375,18 @@ grafico_config_isapre2 <- list(
     prefix= "$ ",
     y_axis_title = "Ganancia (pérdida)"
   ))
+
+# Gráfico Movilidad ISAPRE ------------------------------------------------
+
+grafico_config_movilidad_isapre <- list(
+  estadisticas_movilidad = list(
+    datos = read_rds("data/salud/grafico_isapre/estadisticas_movilidad.rds") %>% filter(`TRAMOS DE EDAD` == "Total"),
+    titulo = "Cotizantes de ISAPRE según Movilidad",
+    subtitulo = "",
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE COTIZANTES",
+    y_axis_title = "Cotizantes de ISAPRE según Movilidad",
+    group = "CONDICION COTIZANTES"
+  ))
+
+

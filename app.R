@@ -441,7 +441,24 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                  
                  fluidRow(style = "height:200px;"),
                  tags$hr(),
-                 fluidRow(style = "height:100px;")),
+                 fluidRow(style = "height:100px;"),
+                 
+                 fluidRow(div(style = "display: flex; justify-content: space-between;",
+                              div(style = "flex: 0 0 58%;",
+                                  highchartOutput("grafico_movilidad", height = "500px")),
+                              div(style = "flex: 0 0 40%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; 
+                                                    height: 500px; background-image: url('imagen_piloto.jpg'); background-size: contain; background-position: center; 
+                                                       background-repeat: no-repeat;",
+                                  div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; 
+                                                  color: white; transform: translateY(10%);",
+                                      pickerInput(inputId = "tipo_movilidad",
+                                                  label = "Movilidad Sistema ISAPRE",
+                                                  choices = c("Cotizantes de ISAPRE según Movilidad" = "estadisticas_movilidad"),
+                                                  selected = "estadisticas_movilidad",
+                                                  options = list(style = "btn-danger")))))),
+                 
+                 
+                 ),
 
 )
 
@@ -1624,6 +1641,38 @@ server <- function(input, output) {
     
     return(hc)
   })  
+  
+  output$grafico_movilidad <- renderHighchart({
+    seleccion <- input$tipo_movilidad
+    config <- grafico_config_movilidad_isapre[[seleccion]]
+    
+    daux <- config$datos %>% 
+      mutate(AÑO = .data[[config$columna_x]], 
+             Y = as.double(.data[[config$columna_y]]))
+    
+    hc <- hchart(
+      daux %>% select(x = AÑO, y = Y, group = .data[[config$group]]), "column",
+      hcaes(x, y, group = group, colorByGroup = TRUE)
+    ) %>% 
+      hc_title(text = config$titulo) %>% 
+      hc_tooltip(table = TRUE, sort = TRUE, valuePrefix = config$prefix, valueSuffix = config$suffix) %>% 
+      hc_yAxis(
+        title = list(text = config$y_axis_title)
+      ) %>% 
+      hc_xAxis(
+        title = "Año"
+      ) %>% 
+      hc_plotOptions(
+        series = list(
+          marker = list(enabled = FALSE)
+        )
+      ) %>% 
+      hc_legend(layout = "horizontal", align = "center", verticalAlign = "bottom")
+    
+    return(hc)
+  })  
+  
+  
   
 } 
 
