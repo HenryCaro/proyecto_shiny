@@ -373,6 +373,7 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                           "Cotizantes ISAPRE por Rango de Edad" = "cotizantes_isapre_edad",
                                                           "Cotizantes FONASA por Tipo de Relación Laboral" = "cotizantes_fonasa_laboral",
                                                           "Cotizantes ISAPRE por Tipo de Relación Laboral" = "cotizantes_isapre_laboral",
+                                                          "Beneficiarios FONASA por Tipo de Afiliacion" = "cotizantes_carga_fonasa",
                                                           "Beneficiarios ISAPRE por Tipo de Afiliacion" = "cotizantes_carga_isapre"),
                                               selected = "beneficiarios_sistema_salud",
                                               options = list(style = "btn-danger"))),

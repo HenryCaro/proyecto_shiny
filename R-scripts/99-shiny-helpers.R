@@ -1195,6 +1195,17 @@ grafico_config_general_salud <- list(
     prefix = "",
     suffix = "",
     macrozona = ""), 
+  cotizantes_carga_fonasa = list(
+    datos = read_rds("data/salud/grafico_general_salud/cotizantes_carga_fonasa.rds"),
+    titulo = "Beneficiarios FONASA Por Tipo de Afiliación",
+    subtitulo = "",
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    y_axis_title = "Beneficiarios FONASA por Tipo de Afiliación",
+    group = "TIPO DE BENEFICIARIO",
+    prefix = "",
+    suffix = "",
+    macrozona = ""),
   cotizantes_carga_isapre = list(
     datos = read_rds("data/salud/grafico_general_salud/cotizantes_carga_isapre.rds"),
     titulo = "Beneficiarios ISAPRE Por Tipo de Afiliación",
@@ -1206,8 +1217,6 @@ grafico_config_general_salud <- list(
     prefix = "",
     suffix = "",
     macrozona = ""))
-
-
 
 # Gráfico Genero Salud ----------------------------------------------------
  
