@@ -1593,6 +1593,7 @@ server <- function(input, output) {
       hcaes(x = X, value = !!sym(config$columna_y), color = !!sym(config$columna_y))
     ) %>%
       hc_title(text = paste(config$titulo, input$anio_select)) %>%
+      hc_subtitle(text = config$subtitulo, align = "center",style = list(color = "#2b908f", fontWeight = "bold")) %>% 
       hc_colorAxis(minColor = "#49006a", maxColor = "#E95420") %>%
       hc_tooltip(pointFormat = "<b>{point.name}</b>: {point.value}")
   })

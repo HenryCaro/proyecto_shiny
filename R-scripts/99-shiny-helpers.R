@@ -1262,6 +1262,7 @@ grafico_config_treemap <- list(
     columna_x = "AÑO",
     columna_y = "CANTIDAD",
     titulo = "Tramos de Beneficiarios de FONASA por Año",
+    subtitulo = "",
     group = "TRAMOS",
     region = "REGIÓN"),
   tramos_renta_fonasa = list(
@@ -1270,6 +1271,7 @@ grafico_config_treemap <- list(
     columna_x = "AÑO",
     columna_y = "NUMERO DE COTIZANTES",
     titulo = "Cotizantes de FONASA por Tramos de Renta",
+    subtitulo = "",
     group = "TRAMOS DE RENTA IMPONIBLE MENSUAL", 
     region = NULL), 
   tramos_renta_isapre = list(
@@ -1278,6 +1280,7 @@ grafico_config_treemap <- list(
     columna_x = "AÑO",
     columna_y = "NUMERO DE COTIZANTES",
     titulo = "Cotizantes de ISAPRE por Tramos de Renta",
+    subtitulo = "en miles de pesos nominales",
     group = "TRAMOS DE RENTA IMPONIBLE MENSUAL", 
     region = NULL))
 
