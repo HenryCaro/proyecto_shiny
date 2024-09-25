@@ -1,6 +1,8 @@
-source("R-scripts/99-shiny-helpers.R")
+source("R-scripts/99-shiny-configuracion.R")
+source("R-scripts/99-shiny-graficos.R")
 
-ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = includeHTML("www/footer_web.html"),
+ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "configuracion_footer.css")), 
+                 footer = includeHTML("www/footer.html"),
                 
                  tabPanel("Proyecto", fluidRow(div(style = "display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 100px; padding-left: 100px", 
                                                    includeHTML("./www/BLOQUE1.html"))),
