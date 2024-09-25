@@ -1194,7 +1194,20 @@ grafico_config_general_salud <- list(
     group = "TIPO DE RELACION LABORAL",
     prefix = "",
     suffix = "",
+    macrozona = ""), 
+  cotizantes_carga_isapre = list(
+    datos = read_rds("data/salud/grafico_general_salud/cotizantes_carga_isapre.rds"),
+    titulo = "Beneficiarios ISAPRE Por Tipo de Afiliación",
+    subtitulo = "",
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    y_axis_title = "Beneficiarios ISAPRE por Tipo de Afiliación",
+    group = "TIPO DE BENEFICIARIO",
+    prefix = "",
+    suffix = "",
     macrozona = ""))
+
+
 
 # Gráfico Genero Salud ----------------------------------------------------
  
@@ -1233,9 +1246,31 @@ grafico_config_genero_salud <- list(
 
 # Gráfico Treemap Salud ---------------------------------------------------
 
-grafico_config_treemap <-  list(
-    datos = read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds") %>% filter(REGIÓN != "Total Nacional"),
-    titulo = "Tramos de Beneficiarios de FONASA por Año")
+grafico_config_treemap <- list(
+  tramos_fonasa = list(
+    datos = read_rds("data/salud/grafico_treemap/beneficiarios_por_tramos.rds") %>% 
+      filter(REGIÓN != "Total Nacional"),
+    columna_x = "AÑO",
+    columna_y = "CANTIDAD",
+    titulo = "Tramos de Beneficiarios de FONASA por Año",
+    group = "TRAMOS",
+    region = "REGIÓN"),
+  tramos_renta_fonasa = list(
+    datos = read_rds("data/salud/grafico_general_salud/tramos_renta_fonasa.rds") %>% 
+      filter(`TRAMOS DE RENTA IMPONIBLE MENSUAL` != "Total general"),
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE COTIZANTES",
+    titulo = "Cotizantes de FONASA por Tramos de Renta",
+    group = "TRAMOS DE RENTA IMPONIBLE MENSUAL", 
+    region = NULL), 
+  tramos_renta_isapre = list(
+    datos = read_rds("data/salud/grafico_general_salud/tramos_renta_isapre.rds") %>% 
+      filter(`TRAMOS DE RENTA IMPONIBLE MENSUAL` != "Total"),
+    columna_x = "AÑO",
+    columna_y = "NUMERO DE COTIZANTES",
+    titulo = "Cotizantes de ISAPRE por Tramos de Renta",
+    group = "TRAMOS DE RENTA IMPONIBLE MENSUAL", 
+    region = NULL))
 
 # Gráfico ISAPRE ----------------------------------------------------------
 

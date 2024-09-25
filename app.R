@@ -2,45 +2,53 @@ source("R-scripts/99-shiny-helpers.R")
 
 ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = includeHTML("www/footer_web.html"),
                 
-                 tabPanel("Proyecto", fluidRow(column(3),column(6, includeHTML("./www/BLOQUE1.html")), column(3)),
+                 tabPanel("Proyecto", fluidRow(div(style = "display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 100px; padding-left: 100px", 
+                                                   includeHTML("./www/BLOQUE1.html"))),
                           
                           fluidRow(style = "height:50px;"),
                           tags$hr(),
 
-                          fluidRow(column(7, style = "display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 600px;", 
-                                          includeHTML("./www/BLOQUE2.html")), 
-                                   column(5, style = "display: flex; flex-direction: column; align-items: center; justify-content: center; height: 600px;", 
-                                                   div(class="panel-body", style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;  border: none;",
-                                                          div(tags$img(src = "imagen_inicio.jpg",
-                                                                       style = "border: none; margin: 0; padding: 0; display: block;",
-                                                                       width = "400px", height = "400px"))))),
+                          fluidRow(div(style = "display: flex; flex-direction: row; align-items: flex-start; justify-content: center; width: 100%;",
+                                      div(style = "flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-left: 100px;", 
+                                          includeHTML("./www/BLOQUE2.html")),
+                                      div(style = "flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;",
+                                          div(class = "panel-body", 
+                                              style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; border: none;", 
+                                              div(tags$img(src = "imagen_inicio.jpg", 
+                                                           style = "border: none; margin: 0; padding: 0; display: block;", 
+                                                           width = "400px", height = "400px")))))),
+
                           fluidRow(style = "height:50px;"),
                           tags$hr(),
                           
-                          fluidRow(column(3), column(6, includeHTML("./www/BLOQUE3.html")), column(3)),
+                          fluidRow(div(style = "display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 100px; padding-left: 100px",
+                                       includeHTML("./www/BLOQUE3.html"))),
                           
                           fluidRow(style = "height:50px;"),
                           tags$hr(),
 
-                          fluidRow(column(3), column(6, includeHTML("./www/BLOQUE4.html"),
-                                                     tags$div(style = "height:50px;"),
-                                                     tags$div(class = "wrap", style="text-align: center;",
-                                                              div(class = "center", 
-                                                                  style="display: inline-block; vertical-align: top; width: 225px; text-align: center;",
-                                                                  tags$a("Sistema de Pensiones",
-                                                                         onclick = "window.open('https://www.spensiones.cl/', '_blank')",
-                                                                         class="btn btn-primary btn-lg")),
-                                                              div(class = "center",
-                                                                  style="display: inline-block; vertical-align: top; width: 75px; text-align: center;",
-                                                                  tags$br()),
-                                                              div(class = "center",
-                                                                  style="display: inline-block; vertical-align: top; width: 225px; text-align: center;",
-                                                                  tags$a("Sistema de Salud", 
-                                                                         onclick="window.open('https://www.superdesalud.gob.cl/', '_blank')",
-                                                                         class="btn btn-primary btn-lg")))), column(3)),
+                          fluidRow(div(style = "display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 100px; padding-left: 100px;",
+                                     includeHTML("./www/BLOQUE4.html")),
+                                      div(style = "height:50px;"),
+                                        div(class = "wrap", style = "text-align: center;",
+                                          div(class = "center", 
+                                              style = "display: inline-block; vertical-align: top; width: 225px; text-align: center;",
+                                              a("Sistema de Pensiones",
+                                              onclick = "window.open('https://www.spensiones.cl/', '_blank')",
+                                              class = "btn btn-primary btn-lg")),
+                                                div(class = "center",
+                                                    style = "display: inline-block; vertical-align: top; width: 75px; text-align: center;",
+                                                    br()),
+                                          div(class = "center",
+                                              style = "display: inline-block; vertical-align: top; width: 225px; text-align: center;",
+                                            a("Sistema de Salud", 
+                                              onclick = "window.open('https://www.superdesalud.gob.cl/', '_blank')",
+                                              class = "btn btn-primary btn-lg")))),
+                          
                           fluidRow(style = "height:50px;")),
                  
-                 tabPanel("Macroeconomía", fluidRow(column(3),column(6, includeHTML("./www/BLOQUE1.html")), column(3)),
+                 tabPanel("Macroeconomía", fluidRow(div(style = "display: flex; flex-direction: column; align-items: center; justify-content: center; padding-right: 100px; padding-left: 100px", 
+                                                        includeHTML("./www/BLOQUE1_1.html"))),
                           
                           fluidRow(style = "height:50px;"),
                           tags$hr(),
@@ -68,10 +76,10 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                         div(style = "display: flex; justify-content: center; align-items: center;",
                                             highchartOutput("grafico_poblacion", width = "950px", height = "500px")))),
                                 
-                                div(style = "flex: 0 0 48%; display: flex; flex-direction: column; align-items: flex-end; padding-right: 20px;",
+                                div(style = "flex: 0 0 48%; display: flex; flex-direction: column; align-items: flex-end; padding-right: 100px;",
                                     div(style = "position: relative; height: 600px; display: flex; flex-direction: column; align-items: center; overflow: auto;",
                                         div(style = "position: relative; text-align: center; color: black; ",
-                                            includeHTML("./www/BLOQUE1_1.html")))))),
+                                            includeHTML("./www/BLOQUE1_2.html")))))),
                           
                           fluidRow(style = "height:60px;"),
                           tags$hr(),
@@ -364,7 +372,8 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                           "Beneficiarios ISAPRE por Rango de Edad" = "beneficiarios_isapre_edad",
                                                           "Cotizantes ISAPRE por Rango de Edad" = "cotizantes_isapre_edad",
                                                           "Cotizantes FONASA por Tipo de Relación Laboral" = "cotizantes_fonasa_laboral",
-                                                          "Cotizantes ISAPRE por Tipo de Relación Laboral" = "cotizantes_isapre_laboral"),
+                                                          "Cotizantes ISAPRE por Tipo de Relación Laboral" = "cotizantes_isapre_laboral",
+                                                          "Beneficiarios ISAPRE por Tipo de Afiliacion" = "cotizantes_carga_isapre"),
                                               selected = "beneficiarios_sistema_salud",
                                               options = list(style = "btn-danger"))),
                               
@@ -390,25 +399,27 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                   choices = c("Beneficiarios FONASA por Género" = "beneficiarios_fonasa_genero",
                                                               "Cotizantes FONASA por Género" = "cotizantes_fonasa_genero",
                                                               "Beneficiarios ISAPRE por Género" = "beneficiarios_isapre_genero",
-                                                              "Cotizantes ISAPRE por Género" = "cotizantes_isapre_genero",
-                                                              "Cotizantes de ISAPRE según Movilidad" = "estadisticas_movilidad"),
+                                                              "Cotizantes ISAPRE por Género" = "cotizantes_isapre_genero"),
                                                   selected = "beneficiarios_fonasa_genero",
                                                   options = list(style = "btn-danger")))))),
                  fluidRow(style = "height:50px;"),
                  tags$hr(),
                  fluidRow(style = "height:50px;"),
                  
-                 fluidRow(
-                   div(style = "display: flex; justify-content: space-between; padding-right: 20px; height: 100vh;",
-                       div(style = "flex: 0 0 50%; display: flex; flex-direction: column; align-items: center;",
-                           div(style = "text-align: center; color: black; margin-bottom: 20px;",
-                               pickerInput(inputId = "anio", 
-                                           label = "Selecciona un Año:", 
-                                           choices = unique(grafico_config_treemap$datos$AÑO), 
-                                           selected = unique(grafico_config_treemap$datos$AÑO)[1],
-                                           options = list(style = "btn-danger"))),
-                           div(style = "display: flex; justify-content: center; align-items: center;",
-                               highchartOutput("treemapPlot", width = "700px", height = "1000px"))),
+                 fluidRow(div(style = "display: flex; justify-content: space-between; padding-right: 20px; height: 100vh;",
+                            div(style = "flex: 0 0 50%; display: flex; flex-direction: column; align-items: center;",
+                                div(style = "text-align: center; color: black; margin-bottom: 20px;",
+                                    pickerInput(inputId = "datos_tramos_renta", 
+                                                label = "Seleccione Cobertura", 
+                                                choices = c("Tramos de Beneficiarios de FONASA por Año" = "tramos_fonasa",
+                                                            "Cotizantes de FONASA por Tramos de Renta" = "tramos_renta_fonasa",
+                                                            "Cotizantes de ISAPRE por Tramos de Renta" = "tramos_renta_isapre"), 
+                                                selected = "tramos_fonasa",
+                                                options = list(style = "btn-danger"))),
+                                div(style = "text-align: center; margin-bottom: 20px; min-height: 50px;",
+                                    uiOutput("anio_picker")),
+                                div(style = "display: flex; justify-content: center; align-items: center;",
+                                    highchartOutput("treemapPlot", width = "700px", height = "1000px"))),
                        
                        div(style = "flex: 0 0 50%; display: flex; flex-direction: column; justify-content: space-between;",
                            div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
@@ -418,14 +429,14 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                        "Cotizantes por ISAPRE abiertas" = "cotizantes_isapre_abiertas",
                                                        "Beneficiarios por ISAPRE cerradas" = "beneficiarios_isapre_cerradas",
                                                        "Cotizantes por ISAPRE cerradas" = "cotizantes_isapre_cerradas",
-                                                       "Cotizantes según Movilidad" = "estadisticas_movilidad"),
+                                                       "Cotizantes de ISAPRE según Movilidad" = "estadisticas_movilidad"),
                                            selected = "beneficiarios_isapre_abiertas",
                                            options = list(style = "btn-danger")),
                                div(style = "flex: 1; margin-bottom: 10px;",
                                    highchartOutput("grafico_isapres", width = "800px", height = "450px"))),
                            
                            div(style = "flex: 0 0 50%; display: flex; flex-direction: column; justify-content: space-between;",
-                               div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white;",
+                               div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; color: white; margin-top: 70px;",
                                    pickerInput(inputId = "tipo_isapre2",
                                                label = "Datos beneficiarios según ISAPRE",
                                                choices = c("Distribución Beneficiarios por Tipo de Plan ISAPRES abiertas" = "distribucion_tipo_plan_i_abiertas",
@@ -437,7 +448,7 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                    div(style = "flex: 1; margin-bottom: 10px;",
                                        highchartOutput("grafico_isapres2", width = "800px", height = "450px"))))))),
                 
-                 fluidRow(style = "height:200px;"),
+                 fluidRow(style = "height:250px;"),
                  tags$hr(),
                  fluidRow(style = "height:100px;"),
                  
@@ -1342,19 +1353,14 @@ server <- function(input, output) {
             linearGradient = list(x1 = 0, y1 = 1, x2 = 0, y2 = 0),
             stops = list(
               list(0.0, "transparent"),
-              list(1.0, PARS$sparkline_color)
-            )
-          )
-        )
-      )
+              list(1.0, PARS$sparkline_color)))))
     
     valueBoxSpark(
       value = lbl,
       subtitle = "Total Nacional",
       color = "black",
       spark = hc,
-      minititle = "Cantidad de Beneficiarios FONASA"
-    )
+      minititle = "Cantidad de Beneficiarios FONASA")
     
   })
   
@@ -1374,19 +1380,14 @@ server <- function(input, output) {
             linearGradient = list(x1 = 0, y1 = 1, x2 = 0, y2 = 0),
             stops = list(
               list(0.0, "transparent"),
-              list(1.0, PARS$sparkline_color)
-            )
-          )
-        )
-      )
+              list(1.0, PARS$sparkline_color)))))
     
     valueBoxSpark(
       value = lbl,
       subtitle = "Total Nacional",
       color = "black",
       spark = hc,
-      minititle = "Cantidad de Beneficiarios ISAPRE"
-    )
+      minititle = "Cantidad de Beneficiarios ISAPRE")
     
   })
   
@@ -1407,19 +1408,14 @@ server <- function(input, output) {
             linearGradient = list(x1 = 0, y1 = 1, x2 = 0, y2 = 0),
             stops = list(
               list(0.0, "transparent"),
-              list(1.0, PARS$sparkline_color)
-            )
-          )
-        )
-      )
+              list(1.0, PARS$sparkline_color)))))
     
     valueBoxSpark(
       value = lbl,
       subtitle = "Ingreso Promedio",
       color = "black",
       spark = hc,
-      minititle = "Ingreso Promedio"
-    )
+      minititle = "Ingreso Promedio")
     
   })
   
@@ -1440,19 +1436,14 @@ server <- function(input, output) {
             linearGradient = list(x1 = 0, y1 = 1, x2 = 0, y2 = 0),
             stops = list(
               list(0.0, "transparent"),
-              list(1.0, PARS$sparkline_color)
-            )
-          )
-        )
-      )
+              list(1.0, PARS$sparkline_color)))))
     
     valueBoxSpark(
       value = lbl,
       subtitle = "Ingreso Mediano",
       color = "black",
       spark = hc,
-      minititle = "Ingreso Mediano"
-    )
+      minititle = "Ingreso Mediano")
     
   })
   
@@ -1515,7 +1506,7 @@ server <- function(input, output) {
         select(x = AÑO, y = Y, group = .data[[config$group]])
       
       num_categorias <- n_distinct(group_var$group)
-
+      
       tipo_grafico <- if (num_categorias > 6) "spline" else "column"
       
       hc <- hchart(
@@ -1568,23 +1559,41 @@ server <- function(input, output) {
     
   })
   
+  observeEvent(input$datos_tramos_renta, {
+    if (input$datos_tramos_renta == "tramos_fonasa" || input$datos_tramos_renta == "tramos_renta_fonasa" || input$datos_tramos_renta == "tramos_renta_isapre") {
+      output$anio_picker <- renderUI({
+        pickerInput(inputId = "anio_select",
+                    label = "Seleccione AÑO",
+                    choices = unique(grafico_config_treemap[[input$datos_tramos_renta]]$datos$AÑO), 
+                    selected = min(grafico_config_treemap[[input$datos_tramos_renta]]$datos$AÑO),
+                    options = list(style = "btn-danger"))
+      })
+    } else {
+      output$anio_picker <- renderUI({ NULL })
+    }
+  })
+  
   output$treemapPlot <- renderHighchart({
     
-    config <- grafico_config_treemap
+    config <- grafico_config_treemap[[input$datos_tramos_renta]]
     
-    data_filtrada <- config$datos %>% filter(AÑO == input$anio)
+    data_filtrada <- config$datos %>% filter(AÑO == input$anio_select)
     
-    data_treemap <- data_filtrada %>%
-      mutate(X = paste(TRAMOS, REGIÓN, sep = "/"))  
+    if (!is.null(config$region)) {
+      data_treemap <- data_filtrada %>%
+        mutate(X = paste(!!sym(config$group), !!sym(config$region), sep = "/"))
+    } else {
+      data_treemap <- data_filtrada %>%
+        mutate(X = !!sym(config$group))
+    }  
     
     hchart(
       data_treemap, "treemap",
-      hcaes(x = X, value = CANTIDAD, color = CANTIDAD)
+      hcaes(x = X, value = !!sym(config$columna_y), color = !!sym(config$columna_y))
     ) %>%
-      hc_title(text = paste(config$titulo, input$anio)) %>%
+      hc_title(text = paste(config$titulo, input$anio_select)) %>%
       hc_colorAxis(minColor = "#49006a", maxColor = "#E95420") %>%
       hc_tooltip(pointFormat = "<b>{point.name}</b>: {point.value}")
-    
   })
   
   output$grafico_isapres <- renderHighchart({
