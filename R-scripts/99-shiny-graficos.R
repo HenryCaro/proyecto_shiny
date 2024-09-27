@@ -49,6 +49,8 @@ grafico_config_macroeconomica <- list(
     prefix = "$USD "
   ))
 
+# Gráfico Gasto Salud -----------------------------------------------------
+
 grafico_config_gasto <- list(
   gasto_salud_pib = list(
     datos = read_rds("data/salud/grafico_gasto/gasto_salud_pib.rds"),
@@ -126,6 +128,8 @@ grafico_config_gasto <- list(
     prefix = "$M ",
     instituciones = "SECCIONES"))
 
+# Gráfico Población -------------------------------------------------------
+
 grafico_config_poblacion <- list(
   esperanza_de_vida_totales = list(
     datos = read_rds("data/macroeconomia/grafico_poblacion/esperanza_de_vida.rds"),
@@ -199,6 +203,8 @@ grafico_config_poblacion <- list(
     y_axis_title = "Estimación Tasa Ocupados Informales",
     group = "GENERO",
     suffix = "%"))
+
+# Gráfico Ingresos Medio y Mediano ----------------------------------------
 
 grafico_config_ingresos <- list(
   ingreso_medio = list(
@@ -962,8 +968,6 @@ grafico_config_genero2 <- list(
     titulo = "Beneficiarios Articulo 9º Bis según Género",
     subtitulo = "Por Género"
   ))
-
-# Gráfico Gasto Salud -----------------------------------------------------
 
 # Gráfico General ---------------------------------------------------------
 
