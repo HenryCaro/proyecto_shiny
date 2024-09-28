@@ -194,7 +194,7 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                     div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; 
                                                   color: white; transform: translateY(10%);",
                                         pickerInput(inputId = "tipo_genero",
-                                                    label = "Datos según género",
+                                                    label = "Datos según género AFP's",
                                                     choices = c("Afiliados Dependientes por Género" = "afiliados_tipo_sexo_dependientes", 
                                                                 "Afiliados Independientes por Género" = "afiliados_tipo_sexo_independientes", 
                                                                 "Afiliados Voluntarios por Género" = "afiliados_tipo_sexo_voluntarios", 
@@ -242,7 +242,7 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                           fluidRow(div(style = "position: relative; height: 600px; display: flex; flex-direction: column; align-items: center;",
                                        div(style = "position: relative; text-align: center; color: black;",
                                            pickerInput(inputId = "tipo_afps",
-                                                       label = "Datos Afp's",
+                                                       label = "Datos AFP's",
                                                        choices = c("Rentabilidad Fondo A por AFP" = "rentabilidad_fondo_a_afps",
                                                                    "Rentabilidad Fondo B por AFP" = "rentabilidad_fondo_b_afps",
                                                                    "Rentabilidad Fondo C por AFP" = "rentabilidad_fondo_c_afps",
@@ -310,9 +310,9 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                           fluidRow(style = "height:40px;"),
                         
                           fluidRow(div(style = "display: flex; align-items: center; justify-content: center;",
-                                  div(style = "margin-right: 10px;",
+                                  div(style = "margin-right: 10px; align-items: center; justify-content: center; text-align: center;",
                                      pickerInput(inputId = "pilar_pgu",
-                                                 label = "Pilar Solidario y PGU",
+                                                 label = "Datos PBS y PGU",
                                                  choices = c(
                                                    "Beneficiarios Totales Pilar Solidario y PGU" = "serie_pilar1_totales",
                                                    "Monto Total en $MM de Pesos de Beneficios Pilar Solidario y PGU" = "serie_pilar2_totales",
@@ -338,7 +338,7 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                                  div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; 
                                                                 color: white; transform: translateY(10%);",
                                                      pickerInput(inputId = "tipo_genero2",
-                                                                 label = "Datos según género",
+                                                                 label = "Datos según género PBS y PGU",
                                                                  choices = c("Beneficiarios PBS Vejez / PGU No Contributiva por Género" = "serie_pilar1_pbsvejez_pgunon",
                                                                              "Beneficiarios PBS Invalidez por Género" = "serie_pilar1_pbsinvalidez",
                                                                              "Beneficiarios APS Vejez" = "serie_pilar1_apsvejez",
@@ -397,7 +397,7 @@ ui <- navbarPage(title = "PROYECTO", theme = shinytheme("united"), footer = incl
                                   div(style = "flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; 
                                                   color: white; transform: translateY(10%);",
                                       pickerInput(inputId = "tipo_genero_salud",
-                                                  label = "Datos FONASA según género",
+                                                  label = "Datos Sistema Salud Según Género",
                                                   choices = c("Beneficiarios FONASA por Género" = "beneficiarios_fonasa_genero",
                                                               "Cotizantes FONASA por Género" = "cotizantes_fonasa_genero",
                                                               "Beneficiarios ISAPRE por Género" = "beneficiarios_isapre_genero",
