@@ -6,7 +6,7 @@ source("scripts/99-utilidades.R")
 
 # Bases de Datos Banco Central --------------------------------------------
 
-api_pib <- paste0("https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=correousuario@ejemplo.cl&pass=password&timeseries=", 
+api_pib <- paste0("https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=correo_de_usuario@ejemplo.cl&pass=password&timeseries=", 
                   c("F032.PIB.FLU.N.CLP.EP18.Z.Z.0.T", "F032.PIB.FLU.R.CLP.EP18.Z.Z.1.T", "F032.PIB.FLU.R.CLP.EP18.Z.Z.0.T", 
                   "F012.PPCP.FLU.N.7.AME.CL.USD.FMI.Z.0.A", "F032.PIB.PP.Z.USD.2018.Z.Z.0.A"), "&function=GetSeries")
 
